@@ -1,0 +1,75 @@
+Git Commands and Concepts
+
+1. git reset --hard origin main
+The git reset --hard origin main command resets your local branch to match the remote branch (origin/main).
+It discards all local changes, including uncommitted changes, and ensures your local repository is exactly the same as the remote one.
+Example:
+You have made changes to some files but decide to discard everything and start fresh from the remote repository.
+git reset --hard origin main
+🔹 This will:
+✅ Remove all uncommitted local changes
+✅ Reset your branch to match the latest remote version
+❌ Warning: This action cannot be undone unless you have a backup or use git reflog.
+
+2. git pull origin main
+The git pull origin main command fetches the latest changes from the main branch of the remote repository (origin) and merges them into your local branch.
+Example:
+If someone else has pushed updates to GitHub, you can get those changes using:
+git pull origin main
+🔹 This will:
+✅ Fetch the latest commits from origin/main
+✅ Merge them into your local main branch
+❌ If you have uncommitted changes, Git may show a merge conflict, which you need to resolve manually.
+
+3. git stash
+The git stash command temporarily saves uncommitted changes so you can work on something else without committing your work.
+Example:
+You are working on a new feature but need to pull updates from main. Since pulling might cause conflicts, you stash your changes first:
+git stash
+git pull origin main
+git stash pop  # Reapplies the stashed changes after pulling updates
+🔹 This will:
+✅ Save your current changes
+✅ Allow you to pull new updates without committing
+✅ Restore your changes later using git stash pop
+
+4. git merge
+The git merge command combines two branches into one.
+Example:
+You have been working on a feature branch (feature-branch) and now want to merge it into main:
+git checkout main
+git merge feature-branch
+🔹 This will:
+✅ Merge feature-branch into main
+✅ Keep both commit histories
+❌ If there are conflicting changes, you will need to resolve merge conflicts manually.
+
+5. git rebase
+The git rebase command moves commits from one branch onto another, rewriting history.
+Example:
+You are working on a feature branch and need to update it with the latest changes from main:
+git checkout feature-branch
+git rebase main
+🔹 This will:
+✅ Apply all feature-branch commits on top of main
+✅ Keep a cleaner commit history compared to git merge
+❌ If conflicts occur, you must resolve them manually before continuing the rebase.
+
+6. The Caret (^) Operator in Git
+The caret (^) operator moves backwards in commit history, referencing parent commits.
+Examples:
+git checkout HEAD^  # Move to the parent commit
+git checkout HEAD^^ # Move to the grandparent commit
+git checkout main^  # Move to the first parent of 'main'
+🔹 This helps when you want to check out previous commits without using long commit hashes.
+Using ^ with Merge Commits
+git checkout HEAD^1  # First parent (main branch before merge)
+git checkout HEAD^2  # Second parent (the branch that was merged)
+🔹 Use ^1 and ^2 to navigate different parents of a merge commit.
+
+7. The Tilde (~) Operator in Git
+The tilde (~) operator moves back multiple commits in a single step.
+Examples:
+git checkout HEAD~1  # Move one commit back (same as HEAD^)
+git checkout HEAD~2  # Move two commits back
+git checkout HEAD~5  # Move five commits back
