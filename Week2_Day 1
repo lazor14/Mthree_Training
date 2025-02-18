@@ -1,0 +1,144 @@
+
+Linux Commands
+1. pwd (Print Working Directory)
+Use case: Shows the current directory you are in.
+Examples:
+pwd           # Prints the current directory  
+2. ls (List Files and Directories)
+Use case: Lists the contents of a directory.
+Examples:
+ls                  # List files in the current directory  
+ls -a               # Show hidden files  
+ls -l               # Long format (with permissions, owner, size, etc.)  
+ls -la              # Long format including hidden files  
+ls -lh              # Long format with human-readable file sizes  
+ls -lrt             # Sort by modification time in reverse order  
+ls {a..z}.txt       # List all files named a.txt, b.txt, ..., z.txt  
+3. cd (Change Directory)
+Use case: Moves between directories.
+Examples:
+cd Documents        # Moves into the Documents folder  
+cd ..               # Moves up one directory  
+cd /mnt/d           # Navigates to D: drive in WSL  
+cd /mnt/c/Users     # Navigates to Windows users folder in WSL  
+mkdir pk && cd pk   # Creates a directory and enters it  
+4. mkdir (Make Directory)
+Use case: Creates a new directory.
+Examples:
+mkdir new_folder             # Create a new directory  
+mkdir -p a/b/c/d             # Creates nested directories in one command  
+5. rm & rmdir (Remove Files or Directories)
+Use case: Deletes files and directories.
+Examples:
+rm -r folder_name            # Removes a directory and all its contents  
+rmdir empty_folder           # Removes an empty directory  
+rm -r {a..z}.txt         # Deletes all files named a.txt, b.txt, ..., z.txt  
+rm -r c406                   # Removes a specific directory  
+6. touch (Create a New File)
+Use case: Creates an empty file.
+Examples:
+touch file.txt          # Creates a new empty file  
+touch {a..z}.txt        # Creates multiple text files (a.txt, b.txt, ..., z.txt)  
+7. cp (Copy Files and Directories)
+Use case: Copies files or directories.
+Examples:
+cp file1.txt file2.txt        # Copies file1.txt to file2.txt  
+cp -r my_project /mnt/d/      # Copies a folder to D: drive in WSL  
+8. mv (Move or Rename Files)
+Use case: Moves or renames files.
+Examples:
+mv oldname.txt newname.txt  # Renames a file  
+mv lin /mnt/d/linuxPractice  # Moves a directory to D drive  
+9. cat (View File Contents)
+Use case: Displays file content in the terminal.
+Examples:
+cat file.txt        # Show file content  
+cat /etc/passwd     # View system user details  
+cat pratik.py       # View Python file content  
+10. echo (Print Text or Append to File)
+Use case: Prints text or writes to a file.
+Examples:
+echo "Hello, World!"  
+echo "HI PK" > a.txt      # Overwrites a.txt  
+echo "error is there in this file" > log.txt  # Writes text to a log file  
+11. grep (Search in Files)
+Use case: Searches for text in a file.
+Examples:
+grep "error" log.txt        # Searches for "error" in log.txt  
+grep -Ril "pratik"         # Searches for "pratik" in all files recursively  
+12. find (Search for Files)
+Use case: Finds files based on name or type.
+Examples:
+find /mnt/d/sudip -name PROJECTS  # Finds a directory named PROJECTS  
+13. history (Show Command History)
+Use case: Lists previously used commands.
+Examples:
+history          # Shows command history  
+14. clear (Clear the Terminal)
+Use case: Clears terminal screen.
+Example:
+clear
+15. man (Show Manual of a Command)
+Use case: Shows help documentation for any command.
+Examples:
+man ls  
+man rm  
+man df  
+man grep  
+16. chmod (Change File Permissions)
+Use case: Modifies permissions of a file or directory.
+Basic Usage:
+chmod 777 file.sh   # Gives read, write, and execute permissions to everyone  
+chmod 755 file.sh   # Owner: full access; Group & Others: read & execute  
+chmod 644 file.sh   # Owner: read & write; Group & Others: read-only  
+chmod +x script.sh  # Adds execute permission to a script  
+Numeric Permissions:
+Each permission type (Read, Write, Execute) is represented by a number:
+Read = 4
+Write = 2
+Execute = 1
+To assign permissions, sum up the values for each user type (Owner, Group, Others).
+Example: chmod 750 file.sh
+7 (Owner: Read + Write + Execute → 4+2+1)
+5 (Group: Read + Execute → 4+1)
+0 (Others: No permissions)
+Symbolic Permissions:
+Instead of numbers, you can use symbols to modify permissions.
+chmod u+x file.sh   # Gives execute permission to the owner (user)  
+chmod g-w file.sh   # Removes write permission from the group  
+chmod o+r file.sh   # Gives read permission to others  
+chmod a+x file.sh   # Gives execute permission to everyone  
+17. chown (Change File Owner)
+Use case: Changes the ownership of a file.
+Examples:
+sudo chown root:root testfile.txt  
+sudo chown pratik:pratik testfile.txt  
+18. df (Disk Space Usage)
+Use case: Shows disk usage information.
+Example:
+df -h
+19. du (Directory Size)
+Use case: Shows how much space a directory uses.
+Examples:
+du -sh Documents/  
+du -sh a  
+20. ps (Process Status)
+Use case: Displays currently running processes.
+Example:
+ps aux
+21. top (Monitor System Usage)
+Use case: Shows running processes and system usage.
+Example:
+top
+22. tar (Archive Files)
+Use case: Creates/extracts compressed archives.
+Examples:
+tar -cvf my_project_backup.tar my_project/  # Compresses my_project  
+tar -xvf my_project_backup.tar              # Extracts my_project  
+23. sed (Stream Editor)
+Use case: Modify file content without opening it.
+Examples:
+sed 's/HI/MAHALAKSHMI/g' a.txt   # Replace "HI" with "MAHALAKSHMI"  
+sed -i 's/PK/ML/g' b.txt c.txt d.txt  # Replace "PK" with "ML" in multiple files  
+sed -i '/PK/d' b.txt   # Delete lines containing "PK" in b.txt  
+
