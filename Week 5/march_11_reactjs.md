@@ -206,10 +206,10 @@ import React, { useState } from 'react';
 
 const quotes = [
     "The only way to do great work is to love what you do. – Steve Jobs",
-    "Success is not final, failure is not fatal: It is the courage to continue that counts. – Winston Churchill",
-    "Believe you can and you're halfway there. – Theodore Roosevelt",
+    "When meditation is mastered, the mind is unwavering like the flame of a lamp in a windless place. – Shree Krishna",
+    "I think 99 times and find nothing. I stop thinking, swim in silence, and the truth comes to me. – Albert Einstein",
     "Act as if what you do makes a difference. It does. – William James",
-    "Dream big and dare to fail. – Norman Vaughan"
+    "You might fail a few times, but that's Ok. you end up doing something worthwhile which you learn a great deal from. – Sundar Pichai"
 ];
 
 function QuoteGenerator() {
