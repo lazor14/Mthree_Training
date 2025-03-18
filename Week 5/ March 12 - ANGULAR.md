@@ -1,4 +1,4 @@
-# SRE TRAINING (DAY 23) - ANGULAR
+# SRE TRAINING March 12 - ANGULAR
 
 ## Introduction to Angular
 Angular is a TypeScript-based open-source front-end web application framework developed by Google. It is used to build single-page applications (SPAs) and dynamic web applications with a component-based architecture.
