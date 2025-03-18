@@ -139,7 +139,7 @@ Loki is a log aggregation system designed to work with Grafana. LogQL is its que
   5. Click **"Apply"** to save.
 
 <p align="center">
-  <img src="../images/day-26/screenshot4.JPG" width="75%" alt="Image">
+  <img src="https://github.com/lazor14/Mthree_Training/blob/c083ac7241d5b0ecd53bd81c9b34c488e49ef55a/Week%206/Images/Grafana/screenshot4.JPG" width="75%" alt="Image">
 </p>
   
   ## Add an Error Logs Panel  
@@ -154,7 +154,7 @@ Loki is a log aggregation system designed to work with Grafana. LogQL is its que
   4. Click **"Apply"**.
 
 <p align="center">
-  <img src="../images/day-26/screenshot3.JPG" width="75%" alt="Image">
+  <img src="https://github.com/lazor14/Mthree_Training/blob/c083ac7241d5b0ecd53bd81c9b34c488e49ef55a/Week%206/Images/Grafana/screenshot3.JPG" width="75%" alt="Image">
 </p>
   
   ## Add a CPU Usage Metrics Panel  
@@ -168,7 +168,7 @@ Loki is a log aggregation system designed to work with Grafana. LogQL is its que
   5. Click **"Apply"**.
 
 <p align="center">
-  <img src="../images/day-26/screenshot2.JPG" width="75%" alt="Image">
+  <img src="https://github.com/lazor14/Mthree_Training/blob/c083ac7241d5b0ecd53bd81c9b34c488e49ef55a/Week%206/Images/Grafana/screenshot2.JPG" width="75%" alt="Image">
 </p>
   
   ## Add a Log Volume Panel  
@@ -182,7 +182,7 @@ Loki is a log aggregation system designed to work with Grafana. LogQL is its que
   5. Click **"Apply"**.
 
 <p align="center">
-  <img src="../images/day-26/screenshot1.JPG" width="75%" alt="Image">
+  <img src="https://github.com/lazor14/Mthree_Training/blob/c083ac7241d5b0ecd53bd81c9b34c488e49ef55a/Week%206/Images/Grafana/screenshot1.JPG" width="75%" alt="Image">
 </p>
   
   ## Arrange and Resize Panels  
@@ -191,7 +191,7 @@ Loki is a log aggregation system designed to work with Grafana. LogQL is its que
   3. Organize metrics logically.
 
 <p align="center">
-  <img src="../images/day-26/screenshot5.JPG" width="75%" alt="Image">
+  <img src="https://github.com/lazor14/Mthree_Training/blob/c083ac7241d5b0ecd53bd81c9b34c488e49ef55a/Week%206/Images/Grafana/screenshot5.JPG" width="75%" alt="Image">
 </p>
 
 ## 3. Viewing the Imported Dashboard  
@@ -199,5 +199,5 @@ Loki is a log aggregation system designed to work with Grafana. LogQL is its que
 - Click on the imported dashboard to start monitoring your data.
 
 <p align="center">
-  <img src="../images/day-27/screenshot1.JPG" width="75%" alt="Image">
+  <img src="https://github.com/lazor14/Mthree_Training/blob/c083ac7241d5b0ecd53bd81c9b34c488e49ef55a/Week%206/Images/Grafana/screenshot1%20(1).JPG" width="75%" alt="Image">
 </p>
