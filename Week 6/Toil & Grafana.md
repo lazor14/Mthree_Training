@@ -64,9 +64,9 @@ After setting up the monitoring infrastructure, I manually created a **Grafana d
 - Opened Grafana and navigated to **Dashboards > Create a new dashboard**.
 - Added a **Logs Panel** using **Loki** as the data source.
 - Used the query `{namespace="sample-app"}` to retrieve logs.
-![] #(https://github.com/rhearobinson19/Mthree_Daily_Documentation/blob/main/WEEK%206/SRE%20TRAINING%20(DAY%2025)%20-%20TOIL%20%26%20MONITORING%20(GRAFANA%20%26%20PROMETHEUS)/IMAGES/app_logs.png)
+![] (https://github.com/rhearobinson19/Mthree_Daily_Documentation/blob/main/WEEK%206/SRE%20TRAINING%20(DAY%2025)%20-%20TOIL%20%26%20MONITORING%20(GRAFANA%20%26%20PROMETHEUS)/IMAGES/app_logs.png)
 - Added another panel for **filtered error logs** using the query `{namespace="sample-app"} |= "ERROR"`.
-![] #(https://github.com/rhearobinson19/Mthree_Daily_Documentation/blob/main/WEEK%206/SRE%20TRAINING%20(DAY%2025)%20-%20TOIL%20%26%20MONITORING%20(GRAFANA%20%26%20PROMETHEUS)/IMAGES/error_logs.png)
+![] (https://github.com/rhearobinson19/Mthree_Daily_Documentation/blob/main/WEEK%206/SRE%20TRAINING%20(DAY%2025)%20-%20TOIL%20%26%20MONITORING%20(GRAFANA%20%26%20PROMETHEUS)/IMAGES/error_logs.png)
 - Configured a **CPU Usage Panel** using **Prometheus**.
   - Used the query `sum(rate(container_cpu_usage_seconds_total{namespace="sample-app"}[5m])) by (pod)`.
 ![](https://github.com/rhearobinson19/Mthree_Daily_Documentation/blob/main/WEEK%206/SRE%20TRAINING%20(DAY%2025)%20-%20TOIL%20%26%20MONITORING%20(GRAFANA%20%26%20PROMETHEUS)/IMAGES/cpu_usage.png)
