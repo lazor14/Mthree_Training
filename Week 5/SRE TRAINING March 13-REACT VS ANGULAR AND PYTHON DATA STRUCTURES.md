@@ -1,4 +1,4 @@
-# SRE TRAINING (DAY 24) - REACT V/S ANGULAR && PYTHON DATA STRUCTURES
+# SRE TRAINING March 13 - REACT V/S ANGULAR && PYTHON DATA STRUCTURES
 ## Differences Between React and Angular
 
 | Feature         | React  | Angular  |
