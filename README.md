@@ -19,9 +19,9 @@
 🔹 Understanding **version control**  
 🔹 Working with **branches and merges**  
 🔹 Hands-on **Git exercises**  
-🔹Introduction to **databases**  
+🔹 Introduction to **databases**  
 🔹 Writing **SQL queries**  
-🔹**Database design** & normalization  
+🔹 **Database design** & normalization  
 🔹 **SQL optimization** techniques
 
 ---
@@ -39,13 +39,18 @@
 ---
 
 ##  Week 3: Advanced Linux / IT Service Management  
-
+   🔹**Linux command-line essentials**                                     
+   🔹**File system navigation**  
+   🔹**User & permission management**  
+   🔹**Python fundamentals** 
 
 ---
 
 ##  Week 4:  Python, Docker, SRE Concepts
  🔹  **Python DSA**
+ 
  🔹  **Dockers, Containerisations**
+ 
  🔹  **CI/CD concepts**
 
 ---
