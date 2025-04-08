@@ -27,9 +27,9 @@
 ---
 
 ##  Week 2: Python and Linux Basics
-   🔹 **Linux command-line essentials**  
+   🔹**Linux command-line essentials**                                     
    🔹**File system navigation**  
-   🔹 **User & permission management**  
+   🔹**User & permission management**  
    🔹**Python fundamentals**  
    🔹**Object-Oriented Programming (OOP)**  
    🔹**Writing scripts and automation**  
@@ -40,10 +40,7 @@
 
 ##  Week 3: Advanced Linux / IT Service Management  
 
-🔹 **System monitoring** & performance tuning  
-🔹 **Shell scripting**  
-🔹 **Networking & security in Linux** 
-🔹**Introduction to **IT service management** 
+
 ---
 
 ##  Week 4:  Python, Docker, SRE Concepts
