@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPC Nexus Chatbot</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+    }
+
+    /* Chatbot Button */
+    #chatbot-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    /* Chatbot Popup */
+    #chat-popup {
+      display: none;
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 350px;
+      height: 500px;
+      background: #e6f7ff; /* Light Blue Background */
+      border-radius: 20px;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    #chat-header {
+      background: #007bff;
+      color: white;
+      padding: 15px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #info-icon {
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    /* Messages */
+    #chat-messages {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 15px;
+      background: #f0f9ff;
+    }
+
+    /* Chat Bubbles */
+    .user-message, .bot-message {
+      padding: 10px 15px;
+      border-radius: 18px;
+      margin: 8px 0;
+      max-width: 75%;
+      line-height: 1.4;
+    }
+
+    .user-message {
+      background-color: #007bff;
+      color: white;
+      margin-left: auto;
+    }
+
+    .bot-message {
+      background-color: #e9ecef;
+      color: #495057;
+    }
+
+    /* Clear Button */
+    #clear-btn {
+      background-color:  #007bff;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      margin-top: 10px;
+      margin-left: 250px;
+      cursor: pointer;
+      font-weight: 600;
+     
+    }
+
+    #clear-btn:hover {
+      background-color: #c82333;
+    }
+
+    /* Suggestions */
+    .follow-up {
+      background: #fff3cd;
+      padding: 10px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    .follow-up li {
+      cursor: pointer;
+      color: #007bff;
+      margin: 8px 0;
+    }
+
+    .follow-up li:hover {
+      text-decoration: underline;
+    }
+
+    /* Input & Send Button */
+    #chat-input-container {
+      display: flex;
+      padding: 12px;
+      border-top: 1px solid #ddd;
+      background: white;
+    }
+    /* Back to Chat Button */
+.contact-options button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-weight: 600;
+}
+
+.contact-options button:hover {
+  background-color: #0056b3;
+}
+
+
+    #chat-input {
+      flex-grow: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    #send-btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      margin-left: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #send-btn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Notification */
+    #chat-notification {
+      position: fixed;
+      bottom: 90px;
+      right: 30px;
+      background: #007bff;
+      color: white;
+      padding: 12px;
+      border-radius: 12px;
+      display: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Chatbot Button -->
+  <button id="chatbot-btn" onclick="toggleChat()">💬</button>
+
+  <!-- Chatbot Notification -->
+  <div id="chat-notification" onclick="openChatFromNotification()">👋 Hi! I'm IPC Nexus Bot. How may I assist you?</div>
+
+  <!-- Chatbot Popup -->
+  <div id="chat-popup">
+    <div id="chat-header">
+      IPC Nexus Bot
+      <span id="info-icon" onclick="toggleContactTab()">ℹ️</span>
+    </div>
+    <div id="chat-messages"></div>
+    <button id="clear-btn" onclick="clearChat()">Clear Chat</button>
+    <div id="chat-input-container">
+      <input type="text" id="chat-input" placeholder="Ask your question..." />
+      <button id="send-btn">Send</button>
+    </div>
+  </div>
+
+<script>
+   let chatExpanded = false;
+
+let suggestions = [];
+
+// Fetch 5 random suggestions from law_data.json
+function fetchSuggestions() {
+    fetch("http://127.0.0.1:5000/get_suggestions")
+    .then(response => response.json())
+    .then(data => {
+        if (data.suggestions && data.suggestions.length > 0) {
+            suggestions = data.suggestions;
+            displaySuggestions();
+        } else {
+            console.error("No suggestions received.");
+        }
+    })
+    .catch(error => console.error("Error fetching suggestions:", error));
+}
+
+// Display suggestions in the chat
+function displaySuggestions() {
+    let chatMessages = document.getElementById("chat-messages");
+
+    // Remove any previous suggestions to avoid duplicates
+    const existingSuggestions = document.querySelector(".follow-up");
+    if (existingSuggestions) {
+        existingSuggestions.remove();
+    }
+
+    // Display new suggestions
+    let suggestionHTML = "<div class='follow-up'><p>Try asking:</p><ul>";
+    suggestions.forEach(q => {
+        suggestionHTML += `<li onclick="quickAsk('${q}')">${q}</li>`;
+    });
+    suggestionHTML += "</ul></div>";
+
+    chatMessages.innerHTML += suggestionHTML;
+    scrollChat();
+
+}
+
+// Suggest similar questions as follow-ups
+function addFollowUpSuggestions(userInput) {
+    fetch("http://127.0.0.1:5000/get_followups", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userInput })
+    })
+    .then(response => response.json())
+    .then(data => {
+        let chatMessages = document.getElementById("chat-messages");
+        let followUpHTML = "<div class='follow-up'>Follow-up questions:<ul>";
+        data.followups.forEach(q => {
+            followUpHTML += `<li onclick="quickAsk('${q}')">${q}</li>`;
+        });
+        followUpHTML += "</ul></div>";
+        chatMessages.innerHTML += followUpHTML;
+        scrollChat();
+    })
+    .catch(error => console.error("Error fetching follow-ups:", error));
+}
+
+// Initialize suggestions when the chat is opened
+window.onload = function() {
+    fetchSuggestions();
+};
+
+// Save chat history to sessionStorage
+function saveChatHistory() {
+    const chatMessages = document.getElementById("chat-messages").innerHTML;
+    sessionStorage.setItem("chatHistory", chatMessages);
+}
+
+// Load chat history from sessionStorage
+function loadChatHistory() {
+    const savedChat = sessionStorage.getItem("chatHistory");
+    if (savedChat) {
+        document.getElementById("chat-messages").innerHTML = savedChat;
+    }
+}
+
+function toggleChat() {
+    var chatPopup = document.getElementById("chat-popup");
+    var notification = document.getElementById("chat-notification");
+
+    if (!chatExpanded) {
+        chatPopup.style.display = "flex"; 
+        notification.style.display = "none"; 
+        loadChatHistory(); // Load chat history if available
+        loadWelcomeMessage();
+        chatExpanded = true;
+    } else {
+        chatPopup.style.display = "none";
+        chatExpanded = false;
+    }
+}
+
+function sendMessage() {
+    let chatInput = document.getElementById("chat-input");
+    let userInput = chatInput.value.trim();
+    let chatMessages = document.getElementById("chat-messages");
+
+    if (userInput === "") return;
+
+    // Predefined responses for greetings and short messages
+    const shortResponses = {
+        "hi": "Hello! How can I assist you today?",
+        "hello": "Hi there! What can I help you with?",
+        "hey": "Hey! How may I assist you?",
+        "i need help": "Of course! Please let me know what you need help with."
+    };
+
+    const lowerInput = userInput.toLowerCase();
+
+    if (shortResponses[lowerInput]) {
+        chatMessages.innerHTML += `<div class="user-message"><b>You:</b> ${userInput}</div>`;
+        chatMessages.innerHTML += `<div class="bot-message"><b>Bot:</b> ${shortResponses[lowerInput]}</div>`;
+        chatInput.value = "";
+        scrollChat();
+        return;
+    }
+
+    // Error message if input has fewer than 3 words (excluding short responses)
+    const wordCount = userInput.split(/\s+/).filter(word => word).length;
+    if (wordCount < 3) {
+        chatMessages.innerHTML += `<div class="user-message"><b>You:</b> ${userInput}</div>`;
+        chatMessages.innerHTML += `<div class="bot-message"><b>Bot:</b> Message too small, can't understand. Please provide more details.</div>`;
+        chatInput.value = "";
+        scrollChat();
+        return;
+    }
+
+    // Proceed with normal API call for other messages
+    chatMessages.innerHTML += `<div class="user-message"><b>You:</b> ${userInput}</div>`;
+    chatInput.value = "";
+
+    fetch("http://127.0.0.1:5000/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userInput })
+    })
+    .then(response => response.json())
+    .then(data => {
+        chatMessages.innerHTML += `<div class="bot-message"><b>Bot:</b> ${data.response}</div>`;
+        scrollChat();
+    })
+    .catch(error => console.error("Error:", error));
+}
+
+function addFollowUpSuggestions() {
+    let chatMessages = document.getElementById("chat-messages");
+    let randomFollowUps = suggestions.sort(() => 0.5 - Math.random()).slice(0, 2);
+    
+    let followUpHTML = "<div class='follow-up'>Follow-up questions:<ul>";
+    randomFollowUps.forEach(q => {
+        followUpHTML += `<li onclick="quickAsk('${q}')">${q}</li>`;
+    });
+    followUpHTML += "</ul></div>";
+
+    chatMessages.innerHTML += followUpHTML;
+    scrollChat();
+    saveChatHistory(); // Save the follow-up suggestions
+}
+
+function quickAsk(question) {
+    document.getElementById("chat-input").value = question;
+    sendMessage();  // Auto-send the suggested question
+}
+
+function loadWelcomeMessage() {
+    let chatMessages = document.getElementById("chat-messages");
+
+    // Only show the welcome message if there's no chat history
+    if (!sessionStorage.getItem("chatHistory")) {
+        chatMessages.innerHTML = "<div class='bot-message'><b>Bot:</b> Hi, I'm LawNex bot. How may I assist you?</div>";
+
+        let suggestionHTML = "<div class='follow-up'><p>Try asking:</p><ul>";
+        suggestions.forEach(q => {
+            suggestionHTML += `<li onclick="quickAsk('${q}')">${q}</li>`;
+        });
+        suggestionHTML += "</ul></div>";
+
+        chatMessages.innerHTML += suggestionHTML;
+        scrollChat();
+    }
+}
+
+function scrollChat() {
+    let chatMessages = document.getElementById("chat-messages");
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    saveChatHistory(); // Ensure chat is saved on scroll
+}
+
+function showChatNotification() {
+    let notification = document.getElementById("chat-notification");
+    notification.style.display = "block";
+    setTimeout(() => {
+        notification.style.display = "none";
+    }, 8000);
+}
+
+function openChatFromNotification() {
+    document.getElementById("chat-popup").style.display = "flex";
+    document.getElementById("chat-notification").style.display = "none";
+    chatExpanded = true;
+    loadChatHistory();
+    loadWelcomeMessage();
+}
+
+function handleEnterKey(event) {
+    if (event.key === "Enter") {
+        event.preventDefault(); // Prevent form submission
+        sendMessage();
+    }
+}
+
+function expandChat() {
+    var chatPopup = document.getElementById("chat-popup");
+    chatPopup.style.display = "flex"; 
+}
+function toggleContactTab() {
+    const chatMessages = document.getElementById("chat-messages");
+    chatMessages.innerHTML = `
+        <div class='bot-message'><b>Contact Us</b></div>
+        <div class='contact-options'>
+            <p>📧 <b>Write to Us:</b> <a href='mailto:support@ipcnexus.com'>support@ipcnexus.com</a></p>
+            <p>⭐ <b>Support Us by Reviewing:</b> <a href='https://www.samplereviewsite.com' target='_blank'>Leave a Review</a></p>
+            <p>🌐 <b>Connect with Us:</b></p>
+            <div class='social-icons'>
+                <a href='https://www.youtube.com' target='_blank'><img src='https://cdn-icons-png.flaticon.com/512/1384/1384060.png' alt='YouTube' width='30'></a>
+                <a href='https://www.instagram.com' target='_blank'><img src='https://cdn-icons-png.flaticon.com/512/1384/1384063.png' alt='Instagram' width='30'></a>
+                <a href='https://www.linkedin.com' target='_blank'><img src='https://cdn-icons-png.flaticon.com/512/1384/1384014.png' alt='LinkedIn' width='30'></a>
+            </div>
+            <button onclick='loadChatTab()'> ⬅ Back to Chat</button>
+        </div>
+    `;
+}
+function clearChat() {
+    const chatMessages = document.getElementById("chat-messages");
+    chatMessages.innerHTML = "";
+    sessionStorage.removeItem("chatHistory"); // Clear from sessionStorage
+    loadWelcomeMessage(); // Reload the welcome message with suggested questions
+}
+
+window.onload = function() {
+    fetchSuggestions();
+    document.getElementById("chat-popup").style.display = "none";
+    showChatNotification();
+    loadChatHistory(); // Load chat on window load
+    document.getElementById("chat-input").addEventListener("keypress", handleEnterKey);
+    document.getElementById("send-btn").addEventListener("click", sendMessage);
+}
+
+
+
+function loadChatTab() {
+    const chatMessages = document.getElementById("chat-messages");
+
+    // Check if chat history exists, load it, otherwise load welcome message
+    if (sessionStorage.getItem("chatHistory")) {
+        chatMessages.innerHTML = sessionStorage.getItem("chatHistory");
+    } else {
+        loadWelcomeMessage(); // Restore welcome message if no history exists
+    }
+
+
+
+
+}
+</script>
+
+</body>
+</html>
