@@ -39,18 +39,16 @@
 ---
 
 ##  Week 3: Advanced Linux / IT Service Management  
-   🔹**Linux command-line essentials**                                     
-   🔹**File system navigation**  
-   🔹**User & permission management**  
-   🔹**Python fundamentals** 
+   🔹**System Monitoring ** and pergformance turning                                    
+   🔹**Shell Scripting**  
+   🔹**Networking and Security in Linux**  
+   🔹**Intro to IT Services** 
 
 ---
 
 ##  Week 4:  Python, Docker, SRE Concepts
  🔹  **Python DSA**
- 
  🔹  **Dockers, Containerisations**
- 
  🔹  **CI/CD concepts**
 
 ---
