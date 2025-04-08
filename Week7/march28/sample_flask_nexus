@@ -1,0 +1,33 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Flask App Metrics",
+    "panels": [
+      {
+        "type": "graph",
+        "title": "Request Duration",
+        "targets": [
+          {
+            "expr": "flask_http_request_duration_seconds_count",
+            "legendFormat": "{{method}} {{path}}",
+            "interval": ""
+          }
+        ]
+      },
+      {
+        "type": "graph",
+        "title": "Request Latency (Avg)",
+        "targets": [
+          {
+            "expr": "rate(flask_http_request_duration_seconds_sum[1m]) / rate(flask_http_request_duration_seconds_count[1m])",
+            "legendFormat": "{{method}} {{path}}",
+            "interval": ""
+          }
+        ]
+      }
+    ],
+    "schemaVersion": 16,
+    "version": 0
+  },
+  "overwrite": false
+}
