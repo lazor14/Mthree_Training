@@ -54,7 +54,7 @@
 ---
 
 ##  Week 5:  Kubernetes, Ansible, Jenkins
-🔹  **Introduction to **Jenkins and Docker**  
+🔹  **Introduction to Jenkins and Docker**  
 🔹  **Infrastructure as Code (IaC)**  
 🔹  **Configuration management with Ansible**
   
